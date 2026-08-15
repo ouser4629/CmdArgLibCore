@@ -1,5 +1,5 @@
 <!-- 
-//  Copyright (c) 2025-2026 Psummerland2 LLC.
+//  Copyright (c) 2025-2026 Peter Buenafuente Summerland.
 //  All rights reserved.
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,7 @@
 
 ## CmdArgLibCore
 
-CmdArgLibCore is part of the [Command Argument Library](https://github.com/psummerland2/cmd-arg-lib.git). 
+CmdArgLibCore is part of the [Command Argument Library](https://github.com/ouser4629/cmd-arg-lib.git). 
 
 It provides a base layer of functionality for other modules in the library.
 
