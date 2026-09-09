@@ -121,10 +121,9 @@ extension ShowElement {
         return Self(.textBlock(TextBlock(header: header, lines: lines)))
     }
 
-
     /// Construct lines of text, with a header.  the header is empty, it is ignored. The lines are not line-wrapped,
     /// but they are indented.
-    public static func lines(_ header: String? = nil, _ text: String? = nil) -> ShowElement {
+    public static func lines(_ header: String, _ text: String? = nil) -> ShowElement {
         let lines = text == nil ? [] : text!.components(separatedBy: .newlines)
         return Self(.linesBlock(LinesBlock(header: header, lines: lines)))
     }
@@ -138,14 +137,14 @@ extension ShowElement {
     }
 
     /// Raw mdoc
-    public static func mdoc(_ header: String? = nil, _ text: String? = nil) -> ShowElement {
-        let lines = text == nil ? [] : text!.components(separatedBy: .newlines)
-        return Self(.linesBlock(LinesBlock(header: header, lines: lines)))
+    public static func mdoc(_ text: String) -> ShowElement {
+        let lines = text.components(separatedBy: .newlines)
+        return Self(.linesBlock(LinesBlock(header: "", lines: lines)))
     }
 
     /// A mdoc paragraph. If  `header` is specifired the new section containing the paragraph is createted. Otherwise, the
     /// paragraph is included in the currection section
-    public static func paragraph(_ header: String? = nil, _ text: String? = nil) -> ShowElement {
+    public static func paragraph(_ header: String, _ text: String? = nil) -> ShowElement {
         let lines = text == nil ? [] : text!.components(separatedBy: .newlines)
         return Self(.linesBlock(LinesBlock(header: header, lines: lines)))
     }
@@ -176,4 +175,3 @@ extension Array where Element == ShowElement {
         return nodes
     }
 }
-
