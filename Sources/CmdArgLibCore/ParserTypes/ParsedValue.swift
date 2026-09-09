@@ -18,31 +18,10 @@ public struct ParsedValue:  Sendable {
 
     public var wasEncountered: Bool { encountered }
     public var wasValid: Bool { isValid }
+    public var encounteredPositions: [Int] { positions }
     public var encounteredValues: [String] { values }
     public var encounteredLabels: [String] { parsedLabels }
     public var valuesArray: [String] { values }
-    // FIXME: Should move to CmdArgLibCommandNodeStruct
-    public var encodedRawArg: [String] {
-        if values.isEmpty { return [] }
-        let name = parameter.name
-        var encodeds: [String] = []
-        let labelslMax = parsedLabels.count - 1  // zero if variant, values.count - 1 if array
-        let positionsMax = positions.count - 1 //
-        let multiValue = positionsMax == 0 && values.count > 1
-        for i in 0..<values.count {
-            var position = Double(positions[min(i, positionsMax)])
-            if multiValue {
-                position += Double(i) / 100
-            }
-            let label = labelslMax < 0 ? "nil" : parsedLabels[min(i, labelslMax)]
-            let value = values[i]
-            let encoded = """
-            {"position":\(position),"parameterName":"\(name)","value":"\(value)","label":"\(label)"}
-            """
-            encodeds.append(encoded)
-        }
-        return encodeds
-    }
 
     init(parameter: Parameter) {
         self.parameter = parameter
