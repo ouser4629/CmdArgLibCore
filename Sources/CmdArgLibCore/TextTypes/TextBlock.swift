@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Stuct to render line wrapped text
+/// Struct to render line wrapped text with optional header
 public struct TextBlock: CustomStringConvertible, Sendable {
     public let header: String?
     public var lines: [String]

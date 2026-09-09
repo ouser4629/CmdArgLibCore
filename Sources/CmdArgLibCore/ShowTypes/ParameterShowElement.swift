@@ -17,8 +17,8 @@ public struct ParameterShowElement: Sendable {
         description: String,
         defaultValueOverride: String? = nil,
         completionRule: CompletionRule = .exclusive,
-        isPseudo: Bool = false
-    ) {
+        isPseudo: Bool = false)
+    {
         self.name = name
         self.description = description
         self.defaultValueOverride = defaultValueOverride
@@ -26,7 +26,8 @@ public struct ParameterShowElement: Sendable {
         self.isPseudo = isPseudo
     }
 
-    public init(context: CommandContext) {
+    public init(context: CommandContext)
+    {
         self.name = context.name
         self.description = context.synopsis
         self.defaultValueOverride = nil

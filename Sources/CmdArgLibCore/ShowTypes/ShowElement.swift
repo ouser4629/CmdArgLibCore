@@ -26,9 +26,6 @@ public struct ShowElement: Sendable {
         }
         return element.name
     }
-}
-
-extension ShowElement {
 
     public static func ruleForNameDictionary(for elements: [ShowElement]) -> [String: CompletionRule] {
         var dict: [String:CompletionRule] = [:]
@@ -50,12 +47,11 @@ extension ShowElement {
         return dict
     }
 
-    /// Construct a prologue for a man page
-    public static func prologue(description: String, date: String = "", operatingSystem: String = "")  -> ShowElement {
-        return Self(.linesBlock(LinesBlock(header: "__PROLOGUE__", lines: [description, date, operatingSystem])))
-    }
+}
 
-    /// Construct a synopsis section with a single (wrapped) line
+extension ShowElement {
+
+     /// Construct a synopsis section with a single (wrapped) line
     /// - Parameters:
     ///   - header: Lke "\nUSAGE\n"
     ///   - line: SynopsisLine, an array of SynopsisElements
@@ -112,8 +108,8 @@ extension ShowElement {
         return Self(.commandContextElement(context))
     }
     
-    /// Construct a line-wrapped text element for use in a help screen
-    /// "\n\n" separates paragraphs
+    /// Construct a line-wrapped blocks of text, with a header. If the header is empty, it is ignored. The
+    /// block of text in indented. On input, the blocks to be line-wrapped are separated by "\n\n".
     public static func text(_ header: String, _ text: String? = nil) -> ShowElement {
         var lines: [String] = []
         if let text {
@@ -125,8 +121,31 @@ extension ShowElement {
         return Self(.textBlock(TextBlock(header: header, lines: lines)))
     }
 
-    /// Construct text elements that is not line wrapped - for use in a man page generation
+
+    /// Construct lines of text, with a header.  the header is empty, it is ignored. The lines are not line-wrapped,
+    /// but they are indented.
+    public static func lines(_ header: String? = nil, _ text: String? = nil) -> ShowElement {
+        let lines = text == nil ? [] : text!.components(separatedBy: .newlines)
+        return Self(.linesBlock(LinesBlock(header: header, lines: lines)))
+    }
+}
+
+extension ShowElement {
+
+    /// Construct a prologue for a man page
+    public static func prologue(description: String, date: String = "", operatingSystem: String = "")  -> ShowElement {
+        return Self(.linesBlock(LinesBlock(header: "__PROLOGUE__", lines: [description, date, operatingSystem])))
+    }
+
+    /// Raw mdoc
     public static func mdoc(_ header: String? = nil, _ text: String? = nil) -> ShowElement {
+        let lines = text == nil ? [] : text!.components(separatedBy: .newlines)
+        return Self(.linesBlock(LinesBlock(header: header, lines: lines)))
+    }
+
+    /// A mdoc paragraph. If  `header` is specifired the new section containing the paragraph is createted. Otherwise, the
+    /// paragraph is included in the currection section
+    public static func paragraph(_ header: String? = nil, _ text: String? = nil) -> ShowElement {
         let lines = text == nil ? [] : text!.components(separatedBy: .newlines)
         return Self(.linesBlock(LinesBlock(header: header, lines: lines)))
     }
