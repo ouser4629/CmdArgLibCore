@@ -31,7 +31,7 @@ public struct LinesBlock: CustomStringConvertible, Sendable {
     public var description: String {
         var allLines = lines
         var spaces = String(repeating: " ", count: indent)
-        if let header {
+        if let header, !header.isEmpty {
             let firstLine: String
             if header.last == "\n" {
                 firstLine = String(header.dropLast())
@@ -40,7 +40,7 @@ public struct LinesBlock: CustomStringConvertible, Sendable {
                 let newIndent = stringWidth(header.trimmingCharacters(in: .whitespacesAndNewlines)) + 1
                 spaces = String(repeating: " ", count: newIndent)
                 firstLine = "\(header) \(lines.first ?? "")"
-                allLines = lines.dropLast()
+                allLines = Array(lines.dropFirst())
             }
             allLines = [firstLine] + allLines
         }
