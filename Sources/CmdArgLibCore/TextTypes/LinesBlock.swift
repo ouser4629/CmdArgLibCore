@@ -30,9 +30,9 @@ public struct LinesBlock: CustomStringConvertible, Sendable {
     /// If header ends in "\n": It has its own line. If so it is followed by  indented, unwrapped lines.
     /// Otherwise, header is prefixed to the first line. Remainging lines are hanging indented
     public var description: String {
-        var allLines = lines
         var spaces = String(repeating: " ", count: indent)
         if let header, !header.isEmpty {
+            var allLines = lines
             let firstLine: String
             if header.last == "\n" {
                 firstLine = String(header.dropLast())
@@ -46,6 +46,6 @@ public struct LinesBlock: CustomStringConvertible, Sendable {
             allLines = [firstLine] + allLines
             return allLines.joined(separator: "\n\(spaces)")
         }
-        return allLines.map{ "\(spaces)\($0)" }.joined()
+        return lines.map{ "\(spaces)\($0)" }.joined(separator: "\n")
     }
 }
