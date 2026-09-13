@@ -26,8 +26,9 @@ public struct LinesBlock: CustomStringConvertible, Sendable {
         self.lines_ = lines.map { expander.expandMacros(in: $0) }
     }
 
-    /// If header ends in "\n": It has its own line. If so it is followed by chunks wrapped with indent and extra indent
-    /// Otherwise, it is jiust another chunk, all wrapped witn indent 0  and extra indent = hangingIndent
+    /// If header is nil or empty, all the lines are indented, unwrapped.
+    /// If header ends in "\n": It has its own line. If so it is followed by  indented, unwrapped lines.
+    /// Otherwise, header is prefixed to the first line. Remainging lines are hanging indented
     public var description: String {
         var allLines = lines
         var spaces = String(repeating: " ", count: indent)
@@ -43,7 +44,8 @@ public struct LinesBlock: CustomStringConvertible, Sendable {
                 allLines = Array(lines.dropFirst())
             }
             allLines = [firstLine] + allLines
+            return allLines.joined(separator: "\n\(spaces)")
         }
-        return allLines.joined(separator: "\n\(spaces)")
+        return allLines.map{ "\(spaces)\($0)" }.joined()
     }
 }
