@@ -18,8 +18,7 @@ import Foundation
 
 public struct ShowMacroExpander: Sendable {
     let showMacro: ShowMacro
-    // FIXME: back this with internal callNames_
-    public var callNames: [String]
+    public let callNames: [String]
     let parameterWithName: [String: Parameter]
 }
 
