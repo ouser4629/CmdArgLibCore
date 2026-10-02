@@ -38,6 +38,12 @@ public extension ShowMacroExpander {
         self.parameterWithName = dictionary
     }
 
+    init(from instance: ShowMacroExpander, with callNames: [String]) {
+        self.showMacro = instance.showMacro
+        self.callNames = instance.callNames
+        self.parameterWithName = instance.parameterWithName
+    }
+
     func expandMacros(in string: String) -> String {
         let hotChar = ShowMacro.hotChar
         var badInsertKeys: [String] = []
