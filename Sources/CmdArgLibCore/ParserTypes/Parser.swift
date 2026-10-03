@@ -27,14 +27,10 @@ struct Parser {
         self.parameters = parameters
         self.parentCommandMode = parentCommandMode
         let (lDict, labelErrorMessages, containsManyOldStyleLabels) = Self.makeLabelDict(parameters)
-        let (sDict, shadowGroupErrorMessages) = Self.makeShadowDict(
-            shadowGroups: shadowGroups, parameters: parameters)
+        let (sDict, shadowGroupErrorMessages) = Self.makeShadowDict( shadowGroups: shadowGroups, parameters: parameters)
         let fatalErrorMessages = labelErrorMessages + shadowGroupErrorMessages
         guard fatalErrorMessages.isEmpty else {
-            for fatalErrorMessage in fatalErrorMessages {
-                print(fatalErrorMessage)
-            }
-            fatalError()
+            fatalUseOfAPI(fatalErrorMessages, file: #file, line: #line)
         }
         self.suppressPackedShortLabelErrorReporting = containsManyOldStyleLabels
         self.labelDictionary = lDict
