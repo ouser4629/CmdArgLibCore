@@ -24,4 +24,4 @@ It provides a base layer of functionality for other modules in the library.
 
 This software is licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
-It is currently in beta (version 0.5.0), and currently has only been tested for macOS.
+It is currently in beta (version 0.5.2).
