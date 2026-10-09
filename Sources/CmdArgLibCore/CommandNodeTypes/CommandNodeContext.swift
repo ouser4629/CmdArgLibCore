@@ -21,12 +21,6 @@ public struct CommandContext: Sendable {
     public var children: [CommandContext]
     public var isAssistantNode: Bool
 
-        // FIXME: Deadwood
-    //    public var completionElements: [ShowElement] {
-//        let runContext = runContextMaker()
-//        return runContext.primaryShowElementsForCompletions
-//    }
-
     public init(
         name: String, synopsis: String, runContextMaker: @escaping RunContextMaker,
         subnodes: [CommandContext] = [], isAssistantNode: Bool = false

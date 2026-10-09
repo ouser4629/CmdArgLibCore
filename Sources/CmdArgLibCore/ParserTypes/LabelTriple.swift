@@ -37,7 +37,7 @@ public typealias LabelTriple = (String?, String?, String?)
 
 /// Set Label componets from target function parameter labels
 ///
-/// - Parameter labelName: The labelName name, e.g., "p", "print",
+/// - Parameter rawLabelSpec: e.g. "h__help" or "\_help\_" for "-h" and "--help" or just "-help"
 /// - Returns: short, oldStyle and long labels
 ///
 /// Ittis assumed that labelName has only allowed characters (ascii alphanumeric). If
@@ -47,15 +47,6 @@ public func makeLabelTriple(_ rawLabelSpec: String, defaultLabelIsOldStyle: Bool
         return (nil, nil, nil)
     }
     let labelSpec = rawLabelSpec
-    // FIXME: Deadwood
-//    var labelSpec = rawLabelSpec
-//    if labelSpec.hasPrefix("`") {
-//        labelSpec.removeFirst()
-//        if labelSpec.hasSuffix("`") {
-//          labelSpec.removeLast()
-//        }
-//    }
-
     if labelSpec == "_" || labelSpec == "__" || labelSpec.isEmpty {
         return (nil, nil, nil)
     }

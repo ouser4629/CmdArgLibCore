@@ -30,7 +30,7 @@ public final class Parameter: Sendable {
     let typeName: String
     let minNumberOfValues: Int  // After a label
     let maxNumberOfValues: Int
-    let minNumberOfOccurances: Int  // label and value (or values
+    let minNumberOfOccurances: Int
     let maxNumberOfOccurances: Int
     public let isMeta: Bool
     let isRest: Bool
