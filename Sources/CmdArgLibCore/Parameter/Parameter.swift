@@ -38,7 +38,9 @@ public final class Parameter: Sendable {
     public init(_ label: LabelSpec,
                 _ name: String,
                 _ typeName: String,
-                _ defaultValue: String?, isDummySynopsisParameter: Bool = false)
+                _ defaultValue: String?,
+                forceNotRequired: Bool = false,
+                isDummySynopsisParameter: Bool = false)
     {
         let typeGroup = TypeGroup(typeName: typeName)
         let minMaxNumberOfOccurances = typeGroup.numberOfOccurances(hasDefaultValue: defaultValue != nil)
@@ -55,7 +57,7 @@ public final class Parameter: Sendable {
         self.longLabel = labelTriple.2
         self.minNumberOfValues = minMaxNumberOfValues.0
         self.maxNumberOfValues = minMaxNumberOfValues.1
-        self.minNumberOfOccurances = minMaxNumberOfOccurances.0
+        self.minNumberOfOccurances = forceNotRequired ? 0 :  minMaxNumberOfOccurances.0
         self.maxNumberOfOccurances = minMaxNumberOfOccurances.1
         self.isMeta = isMeta
         self.isRest = isRest
