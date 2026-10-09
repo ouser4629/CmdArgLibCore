@@ -57,7 +57,7 @@ public final class Parameter: Sendable {
         self.longLabel = labelTriple.2
         self.minNumberOfValues = minMaxNumberOfValues.0
         self.maxNumberOfValues = minMaxNumberOfValues.1
-        self.minNumberOfOccurances = forceNotRequired ? 0 : minMaxNumberOfOccurances.0
+        self.minNumberOfOccurances = forceNotRequired ? max(1,minMaxNumberOfOccurances.0) : minMaxNumberOfOccurances.0
         self.maxNumberOfOccurances = minMaxNumberOfOccurances.1
         self.isMeta = isMeta
         self.isRest = isRest
