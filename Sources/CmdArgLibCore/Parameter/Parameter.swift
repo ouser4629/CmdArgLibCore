@@ -48,10 +48,6 @@ public final class Parameter: Sendable {
         let labelTriple = makeLabelTriple(label)
         let isMeta = typeGroup == .metaFlag || typeGroup == .metaOption
         let isRest = typeGroup == .restCmdArgLibValue
-        var minNumberOfOccurances = minMaxNumberOfOccurances.0
-        if forceNotRequired {
-            minNumberOfOccurances = max(1, minNumberOfOccurances)
-        }
         self.name = name
         self.typeName = typeName
         self.defaultValue = defaultValue
@@ -61,7 +57,7 @@ public final class Parameter: Sendable {
         self.longLabel = labelTriple.2
         self.minNumberOfValues = minMaxNumberOfValues.0
         self.maxNumberOfValues = minMaxNumberOfValues.1
-        self.minNumberOfOccurances = minNumberOfOccurances
+        self.minNumberOfOccurances = forceNotRequired ? 0 : minMaxNumberOfOccurances.0
         self.maxNumberOfOccurances = minMaxNumberOfOccurances.1
         self.isMeta = isMeta
         self.isRest = isRest
