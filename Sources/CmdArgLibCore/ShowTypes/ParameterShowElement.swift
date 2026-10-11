@@ -14,7 +14,6 @@
 
 public struct ParameterShowElement: Sendable {
     public let name: String
-    public let typeName: String
     public let description: String
     public let defaultValueOverride: String?
     public let isPseudo: Bool
@@ -22,14 +21,12 @@ public struct ParameterShowElement: Sendable {
 
     public init(
         name: String,
-        typeName: String = "",
         description: String,
         defaultValueOverride: String? = nil,
         completionRule: CompletionRule = .exclusive,
         isPseudo: Bool = false)
     {
         self.name = name
-        self.typeName = typeName
         self.description = description
         self.defaultValueOverride = defaultValueOverride
         self.completionRule = completionRule
@@ -39,7 +36,6 @@ public struct ParameterShowElement: Sendable {
     public init(context: CommandContext)
     {
         self.name = context.name
-        self.typeName = ""
         self.description = context.synopsis
         self.defaultValueOverride = nil
         self.completionRule = .exclusive
