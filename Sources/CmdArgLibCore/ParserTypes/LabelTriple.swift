@@ -18,7 +18,7 @@ public typealias LabelTriple = (String?, String?, String?)
 //
 // Note re generating labels from labelName
 //
-// Ii labelName is just an underscore,:
+// Ii labelName starts with underscore, and has just one underscore:
 //   Lable components are all nil (positional parameter)
 // else If labelName does not contain underscore:
 //   if  labelName.count is one: short = labellabelName
@@ -60,14 +60,17 @@ public func makeLabelTriple(_ rawLabelSpec: String, defaultLabelIsOldStyle: Bool
         }
     }
     let names = labelSpec.split(separator: "_", omittingEmptySubsequences: false)
-    if names.count != 3 {
-        let formatted = labelFormatter(String(labelSpec))
-        return defaultLabelIsOldStyle ? (nil, "-\(formatted)", nil) : (nil, nil, "--\(formatted)")
+    if names.count == 3 {
+        let shortLabel: String? = names[0].isEmpty ? nil : "-\(names[0])"
+        let oldStyleLabel: String? = names[1].isEmpty ? nil : "-\(labelFormatter(String(names[1])))"
+        let longLabel: String? = names[2].isEmpty ? nil : "--\(labelFormatter(String(names[2])))"
+        return (shortLabel, oldStyleLabel, longLabel)
     }
-    let shortLabel: String? = names[0].isEmpty ? nil : "-\(names[0])"
-    let oldStyleLabel: String? = names[1].isEmpty ? nil : "-\(labelFormatter(String(names[1])))"
-    let longLabel: String? = names[2].isEmpty ? nil : "--\(labelFormatter(String(names[2])))"
-    return (shortLabel, oldStyleLabel, longLabel)
+    if labelSpec.first == "_" && names.count == 2 {
+        return (nil, nil, nil)
+    }
+    let formatted = labelFormatter(String(labelSpec))
+    return defaultLabelIsOldStyle ? (nil, "-\(formatted)", nil) : (nil, nil, "--\(formatted)")
 }
 
 func makeLabelSpec(_ triple: LabelTriple) -> String {
