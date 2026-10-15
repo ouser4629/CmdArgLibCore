@@ -87,11 +87,13 @@ extension ShowElement {
         _ name: String,
         _ description: String,
         _ completionRule: CompletionRule = .exclusive,
+        typeName: String? = nil,
         defaultValueOverride: String? = nil
     ) -> ShowElement {
         let parameterShowElement = ParameterShowElement (
             name: name,
             description: description,
+            typeName: typeName,
             defaultValueOverride: defaultValueOverride,
             completionRule: completionRule
         )
