@@ -32,10 +32,9 @@ public struct ParameterFormatter: Sendable {
         return formatedTypeName
     }
 
-
     public static func elementTypeName(of parameter: Parameter) -> String {
         let elementName = parameter.typeElementName
-        if parameter.isVariadic || parameter.isRest {
+        if parameter.isVariadic || parameter.isRest || parameter.isArray && parameter.isPositional {
             return typeFormat.format(elementName) + "..."
         }
         return typeFormat.format(elementName)
