@@ -18,7 +18,7 @@ public struct ShowElement: Sendable {
     public let member: ShowElementType
 
     public enum ShowElementType: Sendable {
-        case synopsisDef(SynopsisHeader, [SynopsisLine])
+        case synopsisDef(SynopsisHeader, [SynopsisLine], Bool)
         case parameterElement(ParameterShowElement)
         case commandContextElement(CommandContext)
         case textBlock(TextBlock)
@@ -65,8 +65,8 @@ extension ShowElement {
     /// - Returns: Synopsis section - header followed by the lines
     ///
     /// A   dummy parameter specification is "$<label>:<type>[=]"; If "=" is specified the dummy will have a default value. The label an type follow the usual rules
-    public static func synopsis(_ header: String = "SYNOPSIS", line: SynopsisLine = []) -> ShowElement {
-        Self(.synopsisDef(header, [line]))
+    public static func synopsis(_ header: String = "SYNOPSIS", line: SynopsisLine = [], withoutCallNames: Bool = false) -> ShowElement {
+        Self(.synopsisDef(header, [line], withoutCallNames))
     }
 
     /// Construct a synopsis section with a multiple (wrapped) lines
@@ -77,8 +77,8 @@ extension ShowElement {
     ///
     /// Each spec is a paramter name or a dummy parameter specification
     /// A   dummy parameter specification is "$<label>:<type>[=]"; If "=" is specified the dummy will have a default value. The label an type follow the usual rules
-    public static func synopsis(_ header: String = "SYNOPSIS", lines: [SynopsisLine]) -> ShowElement {
-        Self(.synopsisDef(header, lines))
+    public static func synopsis(_ header: String = "SYNOPSIS", lines: [SynopsisLine], withoutCallNames: Bool = false) -> ShowElement {
+        Self(.synopsisDef(header, lines, withoutCallNames))
     }
 
     /// Construct a parameter description element for a help screen or manpage
